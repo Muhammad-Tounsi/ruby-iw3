@@ -4,14 +4,17 @@ class ArticlesController < ApplicationController
 
     # GET /articles
     def index
-        @articles = Article.paginate(page: params[:page], per_page: 5).order('created_at DESC')
+        @articles = Article.paginate(page: params[:page]).order('id ASC').all
+        @sumarticle = Article.count(:id)
 
-        render json: {status: 'SUCCESS', message: 'Loaded articles', data: @articles}, status: :ok
+        response.set_header("Content-Range", @sumarticle)
+
+        render json: @articles, status: :ok 
     end
 
     # GET /articles/:id
     def show
-        render json: {status: 'SUCCESS', message: 'Loaded article', data: @article}, status: :ok
+        render json:  @article, status: :ok
     end
 
     # POST /articles
@@ -19,25 +22,25 @@ class ArticlesController < ApplicationController
         @article = Article.new(article_params)
 
         if @article.save
-            render json: {status: 'SUCCESS', message: 'Saved article', data: @article}, status: :created
+            render json: @article, status: :created
         else
-            render json: {status: 'ERROR', message: 'Article not saved', data: @article.errors}, status: :bad_request
+            render json: @article.errors, status: :bad_request
         end
     end
 
     # PATCH/PUT /articles/:id
     def update
         if @article.update(article_params)
-            render json: {status: 'SUCCESS', message: 'Updated article', data: @article}, status: :ok
+            render json: @article, status: :ok
         else
-            render json: {status: 'SUCCESS', message: 'Article not updated', data: @article.errors}, status: :unprocessable_entity
+            render json: @article.errors, status: :unprocessable_entity
         end
     end
 
     # DELETE /articles/:id
     def destroy
         @article.destroy
-        render json: {status: 'SUCCESS', message: 'Deleted article', data: @article}, status: :ok
+        render json: @article, status: :ok
     end
 
     # GET /articles/:id/comments

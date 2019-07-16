@@ -1,9 +1,12 @@
 class CategoriesController < ApplicationController
-	before_action :set_category, only: [:show, :update, :destroy, :get_articles]
+    before_action :set_category, only: [:show, :update, :destroy, :get_articles]
 
-	# GET /categories
+    # GET /categories
     def index
-        @categories = Category.paginate(page: params[:page], per_page: 5).order('created_at DESC')
+        @categories = Category.paginate(page: params[:page]).order('created_at ASC')
+        @sumcategories = Category.count(:id)
+
+        response.set_header("Content-Range", @sumcategories)
 
         json_response(@categories)
     end
