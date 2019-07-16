@@ -3,9 +3,10 @@ import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR } from 'react-admin';
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
         const { username, password } = params;
-        const request = new Request('http://localhost:3000/signup', {
+        const email = username;
+        const request = new Request('http://localhost:3000/login', {
             method: 'POST',
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ email, password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
         })
         return fetch(request)

@@ -12,10 +12,10 @@ const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
     }
-    options.user = {
-        authenticated: true,
-        token: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NjMyOTMxMDR9.l95ea9CIF2kwD6QGgzhv2VEu0VVtqofUyxDYSxPUEag'
-    };
+    //options.user = {
+    //    authenticated: true,
+    //    token: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1NjMzNzk1ODF9.TlanWkQKjgRlFaEb1s4jRCk8BJpCNUVjI93XyTKjTEE'
+    //};
     const token = localStorage.getItem('token');
     options.headers.set('Authorization', `Bearer ${token}`);
     return fetchUtils.fetchJson(url, options);

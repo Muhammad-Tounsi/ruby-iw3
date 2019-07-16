@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'categories/:id/articles', to: 'categories#get_articles'
   get 'articles/:id/categories', to: 'articles#get_categories'
 
-  post 'auth/login', to: 'authentication#authenticate'
+  post 'login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
   get 'users', to: 'users#index'
 end
