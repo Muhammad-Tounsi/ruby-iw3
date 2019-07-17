@@ -14,7 +14,6 @@ class UsersController < ApplicationController
     def index
         @users = User.paginate(page: params[:page]).order('created_at DESC')
         @sumusers = User.count(:id)
-
         response.set_header("Content-Range", @sumusers)
 
         render json: @users, status: :ok
