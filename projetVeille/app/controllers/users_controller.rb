@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :authorize_request, only: [:create, :index]
+
     # POST /signup
     # return authenticated token upon signup
     def create
@@ -14,6 +15,26 @@ class UsersController < ApplicationController
         @users = User.order('created_at DESC')
 
         render json: {status: 'SUCCESS', message: 'Loaded users', data: @users}, status: :ok
+    end
+
+    # GET /users/:id
+    def show
+        render json: @user, status: :ok
+    end
+
+    # PATCH/PUT /users/:id
+    def update
+        if @user.update(user_params)
+            render json: @user, status: :ok
+        else
+            render json: @user.errors, status: :unprocessable_entity
+        end
+    end
+
+    # DELETE /users/:id
+    def destroy
+        @user.destroy
+        render json: @user, status: :ok
     end
 
     private
