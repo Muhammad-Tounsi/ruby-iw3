@@ -1,5 +1,6 @@
 import React from 'react';
-import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, DisabledInput, TextInput, DateInput, NumberInput } from 'react-admin';
+import RichTextInput from "ra-input-rich-text";
+import { ReferenceField, ShowButton, List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, DisabledInput, TextInput, DateInput, NumberInput } from 'react-admin';
 //import BookIcon from '@material-ui/core/svgIcon';
 //export const PostIcon = BookIcon;
 // ChipField, ReferenceManyField, SingleFieldList,
@@ -13,13 +14,15 @@ export const PostList = (props) => (
             <TextField source="created_by" />
             <DateField source="created_at" />
             <DateField source="updated_at" />
-            <TextField source="category_id" />
-            {/* <ReferenceManyField label="Category" reference="category_id" target="category_id">
-                <SingleFieldList>
-                    <ChipField source="category_id" />
-                </SingleFieldList>
-            </ReferenceManyField> */}
+            <ReferenceField
+                resource="articles"
+                source="category_id"
+                reference="categories"
+            >
+            <TextField source="title" />
+            </ReferenceField>
             <EditButton basePath="/articles" />
+            <ShowButton />
         </Datagrid>
     </List>
 );
@@ -33,7 +36,11 @@ export const PostEdit = (props) => (
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="title" />
-            <TextInput source="content" />
+                <RichTextInput
+                source="content"
+                label=""
+                addLabel={false}
+                />
             <DateInput label="Publication date" source="created_at" />
             <TextInput source="category_id" />
         </SimpleForm>

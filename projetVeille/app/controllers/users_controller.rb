@@ -12,9 +12,12 @@ class UsersController < ApplicationController
 
     # GET /users
     def index
-        @users = User.order('created_at DESC')
+        @users = User.paginate(page: params[:page]).order('created_at DESC')
+        @sumusers = User.count(:id)
 
-        render json: {status: 'SUCCESS', message: 'Loaded users', data: @users}, status: :ok
+        response.set_header("Content-Range", @sumusers)
+
+        render json: @users, status: :ok
     end
 
     # GET /users/:id

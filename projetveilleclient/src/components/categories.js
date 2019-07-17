@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, DisabledInput, TextInput, DateInput, NumberInput } from 'react-admin';
+import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, DisabledInput, TextInput, DateInput} from 'react-admin';
 //import BookIcon from '@material-ui/core/svgIcon';
 //export const PostIcon = BookIcon;
 // ChipField, ReferenceManyField, SingleFieldList,

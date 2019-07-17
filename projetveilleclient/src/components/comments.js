@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, DisabledInput, TextInput, DateInput, NumberInput } from 'react-admin';
+import { ReferenceField, List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, DisabledInput, TextInput, DateInput} from 'react-admin';
 //import BookIcon from '@material-ui/core/svgIcon';
 //export const PostIcon = BookIcon;
 // ChipField, ReferenceManyField, SingleFieldList,
@@ -11,6 +11,13 @@ export const CommentList = (props) => (
             <TextField source="message" />
             <TextField source="name" />
             <TextField source="article_id" />
+            <ReferenceField
+                resource="comments"
+                source="article_id"
+                reference="articles"
+            >
+            <TextField source="title" />
+            </ReferenceField>
             <DateField source="created_at" />
             <DateField source="updated_at" />
             <EditButton basePath="/comment" />
@@ -19,7 +26,7 @@ export const CommentList = (props) => (
 );
 
 const CommentTitle = ({ record }) => {
-    return <span>Comments {record ? `"${record.title}"` : ''}</span>;
+    return <span>Comments {record ? `"${record.id}"` : ''}</span>;
 };
 
 export const CommentEdit = (props) => (
@@ -40,6 +47,7 @@ export const CommentCreate = (props) => (
         <SimpleForm>
         <TextInput source="title" />
             <TextInput source="message" />
+            <TextInput source="name" />
             <DateInput label="Publication date" source="created_at" />
             <DateInput label="Publication date" source="updated_at" />
         </SimpleForm>
